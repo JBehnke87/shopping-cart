@@ -2,14 +2,14 @@ import { Component } from "react";
 
 class CartFooter extends Component {
 
-    constructor({copyright}) {
-        super();
-        this.copyright = copyright;
+    constructor(props) {
+        super(props);
+        this.state = { copyright: props.copyright};
     }
 
     render() {
         return <nav className="navbar navbar-dark bg-dark">
-            <a className="navbar-brand" href="#">{this.copyright} 253535418</a>
+            <a className="navbar-brand" href="#">{this.copyright} 2018</a>
         </nav>
     }
 
