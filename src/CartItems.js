@@ -9,7 +9,8 @@ class CartItems extends Component {
   }
 
   calculateTotal() {
-    let total = this.state.cartList.reduce((acc, val) => { return acc = acc + (val.product.priceInCents / 100) }, 0);
+    let total = this.state.cartList.reduce((acc, val) => { return acc = acc + (val.product.priceInCents / 100 * val.quantity) }, 0);
+    total = parseFloat(total).toFixed(2);
     return total;
   }
 
@@ -24,7 +25,7 @@ class CartItems extends Component {
             <div className="col-md-2">Quantity</div>
           </div>
         </div>
-        {this.state.cartList.map(listitem => <CartItem id={listitem.id} name={listitem.product.name} price={listitem.product.priceInCents} quantity={listitem.quantity} />)}
+        {this.state.cartList.map(listitem => <CartItem key={listitem.id} name={listitem.product.name} price={listitem.product.priceInCents} quantity={listitem.quantity} />)}
         <div>Total Price: $ {this.calculateTotal()}</div>
       </div>
     </div>

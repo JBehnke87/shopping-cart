@@ -8,11 +8,11 @@ class CartItem extends Component {
     }
 
     render() {
-        return <div class="list-group-item">
-            <div class="row">
-                <div class="col-md-8">{this.state.name}</div>
-                <div class="col-md-2">{this.state.price / 100 + " $"}</div>
-                <div class="col-md-2">{this.state.quantity}</div>
+        return <div className="list-group-item">
+            <div className="row">
+                <div className="col-md-8">{this.state.name}</div>
+                <div className="col-md-2">{this.state.price / 100 + " $"}</div>
+                <div className="col-md-2">{this.state.quantity}</div>
             </div>
         </div>;
     }

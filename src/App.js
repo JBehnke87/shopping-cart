@@ -25,21 +25,22 @@ class App extends Component {
       { id: 48, name: 'Awesome Leather Shoes', priceInCents: 3990 },
     ]
   }
-  
+
+  submitItem = (item) => {
+    let newProduct = { id: this.state.cartItemsList.length + 1, product: item.product, quantity: item.quantity };
+    this.setState({ cartItemsList: this.state.cartItemsList.concat(newProduct) });
+    this.forceUpdate();
+  }
+
   render() {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <CartHeader />
-        </header>
-        <body>
-          <CartItems cartList={this.state.cartItemsList} />
-          <AddItem productList={this.state.products}/>
-        </body>
-        <footer>
-          <CartFooter copyright="&copy;" />
-        </footer>
+        <CartHeader />
+        <CartItems key={this.state.cartItemsList} cartList={this.state.cartItemsList} />
+        <AddItem productList={this.state.products} submitItem={this.submitItem} />
+        <CartFooter copyright="&copy;" />
+
       </div>
     );
   }
