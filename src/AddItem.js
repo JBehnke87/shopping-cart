@@ -11,24 +11,21 @@ class AddItem extends Component {
         quantity: 0
     }
 
+    setSelectedValue = (e) => {
+        this.setState({ product: this.props.allProducts.find(product => product.name === e.target.value) })
+    }
+
     onSubmit = (e) => {
         e.preventDefault();
-        const newProduct = { product: this.state.product, quantity: parseInt(this.state.quantity) }
-        this.props.submitItem(newProduct);
+        let selectedItem = { ...this.state}
+        this.props.submitItem(selectedItem);
     }
 
     setQuantity = (e) => {
-        this.setState({ quantity: e.target.value });
-    }
-
-    setSelectedProductByName = (e) => {
-        let selectedItem = this.props.productList.find(product => product.name === e.target.value);
-        this.setState({ product: selectedItem });
+        this.setState({ quantity: parseInt(e.target.value) });
     }
 
     render() {
-    console.log("Rerendering AddItem")
-
         return <div className="container">
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
@@ -37,8 +34,9 @@ class AddItem extends Component {
                 </div>
                 <div className="form-group">
                     <label htmlFor="product">Product</label>
-                    <select onChange={this.setSelectedProductByName} className="form-control" name="product" id="product">
-                        {this.props.productList.map(product => <option key={product.id} value={product.name}>{product.name} ({product.priceInCents / 100 + " $"})</option>)}
+                    <select onChange={this.setSelectedValue} className="form-control" name="product" id="product">
+                        <option>select Product...</option>
+                        {this.props.allProducts.map(product => <option key={product.id} value={product.name}>{product.name} ({product.priceInCents / 100 + " $"})</option>)}
                     </select>
                 </div>
                 <button className="btn btn-primary" type="submit">Submit</button>

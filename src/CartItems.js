@@ -4,10 +4,6 @@ import CartItem from './CartItem'
 class CartItems extends Component {
 
   render() {
-    console.log("Rerendering CartItems")
-
-    const countOfItems = this.props.cartList.length;
-
     return <div className="container">
       <h1>Cart Items</h1>
       <div className="list-group">
@@ -18,8 +14,11 @@ class CartItems extends Component {
             <div className="col-md-2">Quantity</div>
           </div>
         </div>
-        { countOfItems > 0 ? (this.props.cartList.map((listitem, index) => <CartItem allProducts={this.props.allProducts} id={listitem.id} key={index} product_id={listitem.product_id} quantity={listitem.quantity} />)) : null }
-        <div>Total Price: $ 0</div>
+        {this.props.allItems.map((listitem, index) => {
+          let product = this.props.allProducts.find(product => listitem.product_id === product.id);
+          return <CartItem key={index} calculateTotal={this.props.calculateTotal} id={listitem.id} product={product} quantity={listitem.quantity} />
+        })
+        }
       </div>
     </div>
 
