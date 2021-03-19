@@ -3,18 +3,11 @@ import CartItem from './CartItem'
 
 class CartItems extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = { cartList: props.cartList };
-  }
-
-  calculateTotal() {
-    let total = this.state.cartList.reduce((acc, val) => { return acc = acc + (val.product.priceInCents / 100 * val.quantity) }, 0);
-    total = parseFloat(total).toFixed(2);
-    return total;
-  }
-
   render() {
+    console.log("Rerendering CartItems")
+
+    const countOfItems = this.props.cartList.length;
+
     return <div className="container">
       <h1>Cart Items</h1>
       <div className="list-group">
@@ -25,8 +18,8 @@ class CartItems extends Component {
             <div className="col-md-2">Quantity</div>
           </div>
         </div>
-        {this.state.cartList.map(listitem => <CartItem key={listitem.id} name={listitem.product.name} price={listitem.product.priceInCents} quantity={listitem.quantity} />)}
-        <div>Total Price: $ {this.calculateTotal()}</div>
+        { countOfItems > 0 ? (this.props.cartList.map((listitem, index) => <CartItem allProducts={this.props.allProducts} id={listitem.id} key={index} product_id={listitem.product_id} quantity={listitem.quantity} />)) : null }
+        <div>Total Price: $ 0</div>
       </div>
     </div>
 

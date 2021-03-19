@@ -2,14 +2,18 @@ import { Component } from "react";
 
 class AddItem extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { product: { id: props.productList[0].id , name: props.productList[0].name, priceInCents: props.productList[0].priceInCents }, quantity: 0 }
+    state = {
+        product: {
+            id: 0,
+            name: "undefined",
+            priceInCents: 0
+        },
+        quantity: 0
     }
 
     onSubmit = (e) => {
         e.preventDefault();
-        const newProduct = { product: this.state.product, quantity: parseInt(this.state.quantity)}
+        const newProduct = { product: this.state.product, quantity: parseInt(this.state.quantity) }
         this.props.submitItem(newProduct);
     }
 
@@ -23,6 +27,8 @@ class AddItem extends Component {
     }
 
     render() {
+    console.log("Rerendering AddItem")
+
         return <div className="container">
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
@@ -32,7 +38,7 @@ class AddItem extends Component {
                 <div className="form-group">
                     <label htmlFor="product">Product</label>
                     <select onChange={this.setSelectedProductByName} className="form-control" name="product" id="product">
-                        { this.props.productList.map(product => <option key={product.id} value={product.name}>{product.name} ({product.priceInCents / 100 + " $"})</option>) }
+                        {this.props.productList.map(product => <option key={product.id} value={product.name}>{product.name} ({product.priceInCents / 100 + " $"})</option>)}
                     </select>
                 </div>
                 <button className="btn btn-primary" type="submit">Submit</button>
