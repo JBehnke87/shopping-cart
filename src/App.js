@@ -10,7 +10,6 @@ class App extends Component {
   state = {
     cartItemsList: [],
     products: [],
-    total: 0,
   }
 
   async componentDidMount() {
@@ -20,10 +19,6 @@ class App extends Component {
     const responseProducts = await fetch("http://localhost:8082/api/products");
     const jsonProducts = await responseProducts.json()
     this.setState({ products: jsonProducts, cartItemsList: jsonItems })
-  }
-
-  calculateTotal = () => {
-    return 0;
   }
 
   async postItem(newItem) {
@@ -52,8 +47,7 @@ class App extends Component {
     return (
       <div className="App">
         <CartHeader />
-        <CartItems key={this.state.cartItemsList} calculateTotal={this.calculateTotal} allProducts={this.state.products} allItems={this.state.cartItemsList} />
-        <div className="container">Total Price: $ {this.calculateTotal()}</div>
+        <CartItems key={this.state.cartItemsList} allProducts={this.state.products} allItems={this.state.cartItemsList} />
         <AddItem allProducts={this.state.products} submitItem={this.submitItem} />
         <CartFooter copyright="&copy;" />
       </div>
